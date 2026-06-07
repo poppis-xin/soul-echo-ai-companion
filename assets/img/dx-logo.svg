@@ -1,0 +1,75 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">DX personal logo</title>
+  <desc id="desc">A soft Apple-inspired DX monogram with a more expressive italic letterform.</desc>
+  <defs>
+    <linearGradient id="card" x1="88" y1="64" x2="424" y2="448" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="0.54" stop-color="#F8FAFC"/>
+      <stop offset="1" stop-color="#E8EEF7"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="108" y1="108" x2="402" y2="398" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8BDCFB"/>
+      <stop offset="0.44" stop-color="#BDF4DA"/>
+      <stop offset="1" stop-color="#FFE2A8"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="128" y1="150" x2="384" y2="346" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#171719"/>
+      <stop offset="0.5" stop-color="#2B2B30"/>
+      <stop offset="1" stop-color="#080B10"/>
+    </linearGradient>
+    <filter id="cardShadow" x="36" y="36" width="440" height="440" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#64748B" flood-opacity="0.16"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  </defs>
+
+  <rect x="70" y="70" width="372" height="372" rx="96" fill="url(#card)" filter="url(#cardShadow)"/>
+  <rect x="86" y="86" width="340" height="340" rx="80" stroke="#FFFFFF" stroke-width="5" opacity="0.9"/>
+
+  <path d="M114 145C153 114 204 100 260 104C311 108 355 124 390 151" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round" opacity="0.72"/>
+  <path d="M119 374C154 405 203 420 257 420C311 420 360 405 394 374" stroke="#D8DEE8" stroke-width="6" stroke-linecap="round" opacity="0.44"/>
+  <circle cx="391" cy="126" r="17" fill="url(#accent)" opacity="0.92"/>
+
+  <text
+    x="255"
+    y="316"
+    text-anchor="middle"
+    font-family="Didot, 'Bodoni 72', 'Cormorant Garamond', Georgia, serif"
+    font-size="185"
+    font-style="italic"
+    font-weight="700"
+    letter-spacing="-22"
+    fill="#91DFF3"
+    opacity="0.55"
+    transform="translate(7 -4)"
+  >DX</text>
+
+  <text
+    x="255"
+    y="316"
+    text-anchor="middle"
+    font-family="Didot, 'Bodoni 72', 'Cormorant Garamond', Georgia, serif"
+    font-size="185"
+    font-style="italic"
+    font-weight="700"
+    letter-spacing="-22"
+    fill="#FFE0A4"
+    opacity="0.42"
+    transform="translate(-5 5)"
+  >DX</text>
+
+  <text
+    x="255"
+    y="316"
+    text-anchor="middle"
+    font-family="Didot, 'Bodoni 72', 'Cormorant Garamond', Georgia, serif"
+    font-size="185"
+    font-style="italic"
+    font-weight="700"
+    letter-spacing="-22"
+    fill="url(#ink)"
+  >DX</text>
+
+  <path d="M126 171C169 151 223 151 258 175C281 191 294 215 302 244" stroke="url(#accent)" stroke-width="9" stroke-linecap="round" opacity="0.66"/>
+  <path d="M345 160L303 243" stroke="url(#accent)" stroke-width="9" stroke-linecap="round" opacity="0.62"/>
+</svg>

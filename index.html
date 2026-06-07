@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Soul Echo</title>
+  <link rel="icon" type="image/png" href="https://img.icons8.com/?size=96&id=P0V0uUgRNxkI&format=png" />
+  <link rel="apple-touch-icon" href="https://img.icons8.com/?size=180&id=P0V0uUgRNxkI&format=png" />
+  <link rel="stylesheet" href="./assets/css/styles.css?v=20260607-cache01" />
+  <script>
+    window.AI_COMPANION_APP_VERSION = "20260607-cache01";
+  </script>
+</head>
+
+<body>
+  <div class="app">
+    <div class="backdrop" id="backdrop"></div>
+
+    <aside class="sidebar" aria-label="陪伴助手配置面板">
+      <header class="side-head">
+        <div class="brand">
+          <div class="brand-title">
+            <img src="https://img.icons8.com/?size=96&id=P0V0uUgRNxkI&format=png" width="32" height="32" alt=""
+              aria-hidden="true" />
+            <strong>灵魂回音</strong>
+          </div>
+        </div>
+        <button class="icon-btn mobile-only" id="closeDrawer" type="button" aria-label="关闭配置">×</button>
+      </header>
+
+      <div class="side-body">
+        <section class="section">
+          <span id="personaCount" hidden>4 个</span>
+          <div class="gender-tabs" id="genderTabs">
+            <button class="gender-tab active" type="button" data-gender="女">女生</button>
+            <button class="gender-tab" type="button" data-gender="男">男生</button>
+          </div>
+          <div class="persona-list" id="personaList"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            <span>关系设定</span>
+          </div>
+          <div class="field-grid">
+            <input id="customName" type="hidden" autocomplete="off" />
+            <textarea id="personality" hidden></textarea>
+            <select id="emotionLevel" hidden>
+              <option value="克制使用颜文字和情绪标签，每 3 到 5 句最多出现一次">克制</option>
+              <option value="正常使用颜文字、情绪标签和短反馈，让回复有陪伴感" selected>正常</option>
+              <option value="更活泼一些，可以使用颜文字、语气词和情绪标签，但不要刷屏">活泼</option>
+            </select>
+            <select id="replyLength" hidden>
+              <option value="回复尽量短，1 到 3 句话，像即时聊天">短句</option>
+              <option value="回复适中，先回应情绪，再给具体建议" selected>正常</option>
+              <option value="回复详细，分点解释，但不要像论文">详细</option>
+            </select>
+            <div class="field">
+              <select id="relationship">
+                <option value="像恋人一样陪我聊天，但保持健康边界">恋人</option>
+                <option value="像暧昧对象一样轻甜互动，不过度推进关系">暧昧对象</option>
+                <option value="像温柔陪伴者一样安抚我的情绪">温柔陪伴</option>
+                <option value="像恋爱顾问一样帮我分析关系和聊天">恋爱顾问</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            <span>模型接口</span>
+            <a class="deepseek-api-link" href="https://platform.deepseek.com/usage" target="_blank"
+              rel="noopener noreferrer">点击获取 DeepSeek API</a>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <input id="apiKey" type="password" placeholder="请填写 API Key" autocomplete="off" />
+            </div>
+            <div class="field">
+              <label for="modelName">Model</label>
+              <select id="modelName">
+                <option value="deepseek-v4-flash">deepseek-v4-flash</option>
+                <option value="deepseek-v4-pro">deepseek-v4-pro</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </aside>
+
+    <main class="chat" aria-label="AI 陪伴聊天窗口">
+      <header class="chat-head">
+        <div class="current">
+          <button class="icon-btn mobile-only" id="openDrawer" type="button" aria-label="打开配置">☰</button>
+          <div class="avatar desktop-only" id="currentAvatar">🌼</div>
+          <div class="current-meta">
+            <strong id="currentName">田曦薇型·甜酷小太阳</strong>
+          </div>
+        </div>
+        <div class="chat-actions">
+          <span class="status-pill" id="statusPill">等待你开口</span>
+          <button class="history-btn" id="historyButton" type="button" aria-label="历史会话" aria-expanded="false"
+            aria-haspopup="dialog" aria-controls="historyPanel">
+            <svg class="history-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7.4 5.2A8.1 8.1 0 1 1 4 11.8"></path>
+              <path d="M4 5.5v5h5"></path>
+              <path d="M12 7.4v4.8l3.2 1.9"></path>
+            </svg>
+          </button>
+          <div class="notification-area">
+            <button class="love-bell-btn" id="notificationButton" type="button" aria-label="通知" aria-expanded="false"
+              aria-haspopup="dialog" aria-controls="notificationMenu">
+              <svg class="love-bell-icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path
+                  d="M480.369 926.453h56.252c72.791 0 92.257-9.119 94.811-70.327h-224.611c0.331 65.292 5.118 70.327 73.551 70.327z"
+                  fill="#FFD6EA"></path>
+                <path
+                  d="M814.634 384.853c0-158.912-133.313-288.166-290.59-288.166h-20.228c-157.29 0-279.871 129.274-279.871 288.166v232.188h590.685v-232.188z"
+                  fill="#FFD6EA"></path>
+                <path
+                  d="M870.885 618.489v-233.635c0-189.939-158.562-344.438-346.839-344.438h-20.228c-188.277 0-336.123 154.499-336.123 344.438v232.345c-62.518 1.901-112.475 53.025-112.505 115.822v7.051c0 0.003 0 0.007 0 0.020 0 64.053 51.926 115.978 115.978 115.978 0.007 0 0.025 0 0.042 0h179.471c1.68 88.955 19.819 126.58 129.685 126.58h56.252c104.729 0 146.863-31.318 151.007-126.58h165.666c64.058-0.006 115.986-51.938 115.998-115.996v-7.047c0.020-58.048-42.703-106.021-98.407-114.534zM223.95 384.853c0-158.912 122.577-288.166 279.871-288.166h20.228c157.27 0 290.59 129.274 290.59 288.166v232.188h-590.685v-232.188zM536.621 926.453h-56.252c-68.416 0-73.219-5.037-73.551-70.327h224.611c-2.578 61.207-22.044 70.327-94.811 70.327zM913.061 740.091c0 15.872-6.268 31.065-17.494 42.252-10.775 10.809-25.682 17.494-42.145 17.494-0.037 0-0.075 0-0.112 0h-682.096c-0.019 0-0.037 0-0.058 0-32.975 0-59.71-26.732-59.71-59.71 0-0.007 0-0.025 0-0.042v-7.007c0-0.019 0-0.037 0-0.058 0-32.975 26.732-59.71 59.71-59.71 0.021 0 0.042 0 0.061 0h682.076c0 0 0 0 0 0 32.999 0 59.745 26.749 59.745 59.745 0 0.004 0 0.007 0 0.021v7.008z"
+                  fill="#FF79B0"></path>
+                <path
+                  d="M588.948 190.721c89.023 39.584 149.979 127.238 149.991 229.132 0-0.004 0-0.004 0-0.004 0 7.763 6.294 14.059 14.059 14.059 7.763 0 14.059-6.294 14.059-14.059 0 0 0 0 0 0 0-0.002 0-0.005 0-0.018 0-113.345-67.807-210.857-165.073-254.18-3.426-1.45-5.364-1.882-7.402-1.882-7.77 0-14.066 6.295-14.066 14.066 0 5.73 3.425 10.66 8.343 12.85zM489.057 169.945c7.907 0 15.838 0.372 23.547 1.091 0.14 0.003 0.304 0.004 0.463 0.004 7.785 0 14.097-6.313 14.097-14.097 0-7.019-5.131-12.839-11.846-13.921-7.868-0.781-16.915-1.223-26.062-1.223-0.070 0-0.141 0-0.211 0-7.536 0.29-13.541 6.479-13.541 14.069 0 7.59 6.007 13.779 13.526 14.067z"
+                  fill="#FF9FCA"></path>
+              </svg>
+            </button>
+          </div>
+          <button class="settings-btn" id="headerSettings" type="button" aria-label="设置" aria-expanded="false"
+            aria-haspopup="menu" aria-controls="settingsMenu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+              class="settings-icon" aria-hidden="true">
+              <g stroke-width="1.5" stroke-linecap="round" stroke="currentColor">
+                <circle r="2.5" cy="10" cx="10"></circle>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="m8.39079 2.80235c.53842-1.51424 2.67991-1.51424 3.21831-.00001.3392.95358 1.4284 1.40477 2.3425.97027 1.4514-.68995 2.9657.82427 2.2758 2.27575-.4345.91407.0166 2.00334.9702 2.34248 1.5143.53842 1.5143 2.67996 0 3.21836-.9536.3391-1.4047 1.4284-.9702 2.3425.6899 1.4514-.8244 2.9656-2.2758 2.2757-.9141-.4345-2.0033.0167-2.3425.9703-.5384 1.5142-2.67989 1.5142-3.21831 0-.33914-.9536-1.4284-1.4048-2.34247-.9703-1.45148.6899-2.96571-.8243-2.27575-2.2757.43449-.9141-.01669-2.0034-.97028-2.3425-1.51422-.5384-1.51422-2.67994.00001-3.21836.95358-.33914 1.40476-1.42841.97027-2.34248-.68996-1.45148.82427-2.9657 2.27575-2.27575.91407.4345 2.00333-.01669 2.34247-.97026z">
+                </path>
+              </g>
+            </svg>
+          </button>
+          <div class="settings-menu" id="settingsMenu" role="menu" aria-label="设置菜单">
+            <a class="settings-menu-item github-menu-item" href="https://github.com/poppis-xin" target="_blank"
+              rel="noopener noreferrer" role="menuitem" aria-label="关于我">
+              <svg fill="currentColor" fill-rule="evenodd" viewBox="0 0 24 24" class="github-mark"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path
+                  d="M12 0c6.63 0 12 5.276 12 11.79-.001 5.067-3.29 9.567-8.175 11.187-.6.118-.825-.25-.825-.56 0-.398.015-1.665.015-3.242 0-1.105-.375-1.813-.81-2.181 2.67-.295 5.475-1.297 5.475-5.822 0-1.297-.465-2.344-1.23-3.169.12-.295.54-1.503-.12-3.125 0 0-1.005-.324-3.3 1.209a11.32 11.32 0 00-3-.398c-1.02 0-2.04.133-3 .398-2.295-1.518-3.3-1.209-3.3-1.209-.66 1.622-.24 2.83-.12 3.125-.765.825-1.23 1.887-1.23 3.169 0 4.51 2.79 5.527 5.46 5.822-.345.294-.66.81-.765 1.577-.69.31-2.415.81-3.495-.973-.225-.354-.9-1.223-1.845-1.209-1.005.015-.405.56.015.781.51.28 1.095 1.327 1.23 1.666.24.663 1.02 1.93 4.035 1.385 0 .988.015 1.916.015 2.196 0 .31-.225.664-.825.56C3.303 21.374-.003 16.867 0 11.791 0 5.276 5.37 0 12 0z">
+                </path>
+              </svg>
+              <span class="settings-menu-text">关于我</span>
+            </a>
+            <a class="settings-menu-item blog-menu-item" href="https://poppis.top/" target="_blank"
+              rel="noopener noreferrer" role="menuitem" aria-label="我的博客">
+              <img class="settings-menu-img" src="./assets/img/dx-logo.svg" alt="" aria-hidden="true">
+              <span class="settings-menu-text">我的博客</span>
+            </a>
+            <a class="settings-menu-item wechat-menu-item" href="./api/wechat_article.php" target="_blank"
+              rel="noopener noreferrer" role="menuitem" aria-label="微信">
+              <svg class="wechat-mark" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true">
+                <path
+                  d="M1024 619.52c0-143.36-138.24-256-307.2-256s-307.2 112.64-307.2 256 138.24 256 307.2 256c30.72 0 61.44-5.12 92.16-10.24l97.28 51.2-25.6-76.8c87.04-51.2 143.36-128 143.36-220.16z m-414.72-40.96c-30.72 0-51.2-20.48-51.2-51.2s20.48-51.2 51.2-51.2 51.2 20.48 51.2 51.2c0 25.6-25.6 51.2-51.2 51.2z m209.92 0c-30.72 0-51.2-20.48-51.2-51.2s20.48-51.2 51.2-51.2 51.2 20.48 51.2 51.2c0 25.6-25.6 51.2-51.2 51.2z"
+                  fill="#4CBF00"></path>
+                <path
+                  d="M358.4 609.28c0-158.72 153.6-286.72 348.16-286.72h15.36c-40.96-133.12-179.2-235.52-353.28-235.52-204.8 0-368.64 138.24-368.64 307.2 0 107.52 66.56 204.8 168.96 256l-30.72 92.16L256 686.08c35.84 10.24 71.68 15.36 112.64 15.36h10.24c-15.36-30.72-20.48-61.44-20.48-92.16z m138.24-414.72c35.84 0 66.56 30.72 66.56 66.56s-30.72 66.56-66.56 66.56C460.8 322.56 430.08 291.84 430.08 256S460.8 194.56 496.64 194.56zM245.76 322.56c-35.84 0-61.44-30.72-61.44-66.56s30.72-66.56 66.56-66.56 61.44 30.72 61.44 66.56-30.72 66.56-66.56 66.56z"
+                  fill="#4CBF00"></path>
+              </svg>
+              <span class="settings-menu-text">微信</span>
+            </a>
+            <a class="settings-menu-item deepseek-menu-item" href="https://platform.deepseek.com/usage" target="_blank"
+              rel="noopener noreferrer" role="menuitem" aria-label="DeepSeek-API">
+              <img class="settings-menu-img" src="./assets/img/deepseek-color.svg" alt="" aria-hidden="true">
+              <span class="settings-menu-text">DeepSeek-API</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <section class="messages" id="messages" aria-live="polite"></section>
+
+      <footer class="composer">
+        <form class="input-row" id="chatForm">
+          <textarea id="userInput" rows="1" placeholder="把想念藏进这句话里"></textarea>
+          <button class="send-btn" id="sendBtn" type="submit" aria-label="发送">
+            <svg class="send-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.48 70.08" aria-hidden="true">
+              <path class="send-icon-plane"
+                d="M59.81,16,51.26,54.84a1.79,1.79,0,0,1-2.87,1l-10-7.94a1.77,1.77,0,0,0-2.47.23l-5.15,5.94a1.77,1.77,0,0,1-3-.6l-4.54-14a1.8,1.8,0,0,0-1.23-1.17l-9-2.37a1.79,1.79,0,0,1-.23-3.37L57.37,14A1.81,1.81,0,0,1,59.81,16Z">
+              </path>
+              <path class="send-icon-fold"
+                d="M47.43,23.57l-24.33,14a1,1,0,0,0-.45,1.14l3.17,10.89a.31.31,0,0,0,.6-.07L27.11,42a2.08,2.08,0,0,1,.77-1.47L47.75,24C48,23.77,47.68,23.4,47.43,23.57Z">
+              </path>
+            </svg>
+          </button>
+        </form>
+        <div class="error" id="errorText" role="status"></div>
+      </footer>
+    </main>
+  </div>
+
+  <div class="history-layer" id="historyLayer" aria-hidden="true">
+    <div class="history-backdrop" id="historyBackdrop"></div>
+    <section class="history-panel" id="historyPanel" role="dialog" aria-modal="true" aria-label="历史会话">
+      <header class="history-head">
+        <div>
+          <strong>历史会话</strong>
+          <span>只保存在当前浏览器本地</span>
+        </div>
+        <button class="history-close" id="historyClose" type="button" aria-label="关闭历史会话">×</button>
+      </header>
+
+      <div class="history-actions">
+        <button class="history-primary" id="newSession" type="button">新聊天</button>
+        <button class="history-ghost" id="clearSessions" type="button">清空历史</button>
+      </div>
+
+      <div class="history-list" id="historyList"></div>
+    </section>
+  </div>
+
+  <div class="notification-layer" id="notificationLayer" aria-hidden="true">
+    <div class="notification-backdrop" id="notificationBackdrop"></div>
+    <div class="notification-menu" id="notificationMenu" role="dialog" aria-label="通知">
+      <div class="notification-content" id="notificationContent">
+        <div class="notice-hero">
+          <span>默认赠送 10 次聊天，超出后填写自己的 Key。</span>
+        </div>
+
+        <div class="notice-grid">
+          <section class="notice-card">
+            <span class="notice-icon">🔒</span>
+            <div>
+              <h3>本地保存</h3>
+              <p>你填写的 API Key 只存在当前浏览器里，我不会收集、上传或保存。</p>
+            </div>
+          </section>
+
+          <section class="notice-card">
+            <span class="notice-icon">💬</span>
+            <div>
+              <h3>接口调用</h3>
+              <p>未填写 Key 时可体验 10 次；超出后需使用自己的 DeepSeek API Key。</p>
+            </div>
+          </section>
+
+        </div>
+
+        <a class="notice-api-btn" href="https://platform.deepseek.com/usage" target="_blank" rel="noopener noreferrer">
+          获取 DeepSeek API
+        </a>
+
+        <section class="notice-copyright">
+          <h3>©️ 版权说明</h3>
+          <p>👨‍💻 本项目由 Poppis 个人设计、开发与整理，仅供学习和个人体验使用。</p>
+          <p>🤖 所有角色均为虚构 AI 设定，不代表真人本人、经纪公司或官方授权。</p>
+          <p>🎨 涉及的名称、图标和公开风格参考归原权利方所有，仅用于演示 AI 角色设定效果。</p>
+          <p>📧 如有不适或侵权，请联系删除或替换。</p>
+        </section>
+
+        <button class="notice-ok" id="notificationAccept" type="button" disabled>知道啦（3 秒）</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/app.js?v=20260607-cache01"></script>
+</body>
+
+</html>

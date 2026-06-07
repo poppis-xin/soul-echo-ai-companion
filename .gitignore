@@ -1,0 +1,11 @@
+api/config.php
+api/storage/
+debug.log
+*.log
+qa-*.png
+MP_verify_*.txt
+.DS_Store
+Thumbs.db
+node_modules/
+.env
+.env.*

@@ -1,0 +1,27 @@
+{
+  "skills": [
+    { "id": "dongbei_yujie", "file": "dongbei-yujie.js" },
+    { "id": "celeb_yu_shuxin", "file": "celeb-yu-shuxin.js" },
+    { "id": "celeb_zhao_lusi", "file": "celeb-zhao-lusi.js" },
+    { "id": "celeb_dilireba", "file": "celeb-dilireba.js" },
+    { "id": "celeb_yang_mi", "file": "celeb-yang-mi.js" },
+    { "id": "celeb_tian_xiwei", "file": "celeb-tian-xiwei.js" },
+    { "id": "celeb_li_xueqin", "file": "celeb-li-xueqin.js" },
+    { "id": "sincere_boy", "file": "tong-jincheng.js" },
+    { "id": "idol_wang_junkai", "file": "idol-wang-junkai.js" },
+    { "id": "idol_ma_jiaqi", "file": "idol-ma-jiaqi.js" },
+    { "id": "idol_ding_chengxin", "file": "idol-ding-chengxin.js" },
+    { "id": "idol_song_yaxuan", "file": "idol-song-yaxuan.js" },
+    { "id": "idol_zhang_zhenyuan", "file": "idol-zhang-zhenyuan.js" },
+    { "id": "idol_yan_haoxiang", "file": "idol-yan-haoxiang.js" },
+    { "id": "idol_he_junlin", "file": "idol-he-junlin.js" },
+    { "id": "idol_liu_yaowen", "file": "idol-liu-yaowen.js" },
+    { "id": "idol_yang_hanbo", "file": "idol-yang-hanbo.js" },
+    { "id": "idol_korean_boyfriend", "file": "idol-korean-boyfriend.js" },
+    { "id": "celeb_song_weilong", "file": "celeb-song-weilong.js" },
+    { "id": "celeb_xiao_zhan", "file": "celeb-xiao-zhan.js" },
+    { "id": "celeb_wang_yibo", "file": "celeb-wang-yibo.js" },
+    { "id": "celeb_tan_jianci", "file": "celeb-tan-jianci.js" },
+    { "id": "celeb_liu_yuning", "file": "celeb-liu-yuning.js" }
+  ]
+}
