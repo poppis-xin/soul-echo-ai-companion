@@ -1,5 +1,5 @@
 (function () {
-  const APP_VERSION = window.AI_COMPANION_APP_VERSION || "20260607-cache01";
+  const APP_VERSION = window.AI_COMPANION_APP_VERSION || "20260607-cache03";
   const DEEPSEEK_CHAT_URL = "https://api.deepseek.com/chat/completions";
   const FREE_CHAT_URL = "./api/chat.php";
   const STORAGE_KEY = "ai-companion-settings";
@@ -9,7 +9,8 @@
   const VALID_MODELS = ["deepseek-v4-flash", "deepseek-v4-pro"];
   const SKILL_BASE_PATH = "./assets/skills/";
   const SKILL_MANIFEST_URL = withAppVersion(`${SKILL_BASE_PATH}manifest.json`);
-  const DEFAULT_PERSONA_ID = "celeb_tian_xiwei";
+  const DEFAULT_PERSONA_ID = "celeb_zhang_linghe";
+  const LEGACY_DEFAULT_PERSONA_ID = "celeb_tian_xiwei";
   const DEFAULT_EMOTION_LEVEL = "正常使用颜文字、情绪标签和短反馈，让回复有陪伴感";
   const DEFAULT_REPLY_LENGTH = "回复适中，先回应情绪，再给具体建议";
 
@@ -178,13 +179,16 @@
     try {
       const data = JSON.parse(raw);
       const defaultPersona = getDefaultPersona();
-      state.selectedId = personas.some((persona) => persona.id === data.selectedId)
+      const shouldMigrateDefault = data.selectedId === LEGACY_DEFAULT_PERSONA_ID;
+      state.selectedId = shouldMigrateDefault
+        ? defaultPersona.id
+        : personas.some((persona) => persona.id === data.selectedId)
         ? data.selectedId
         : defaultPersona.id;
       state.genderFilter = getPersona().gender;
-      els.customName.value = data.customName || "";
-      els.relationship.value = data.relationship || els.relationship.value;
-      els.personality.value = data.personality || "";
+      els.customName.value = shouldMigrateDefault ? "" : data.customName || "";
+      els.relationship.value = shouldMigrateDefault ? defaultPersona.relationship : data.relationship || els.relationship.value;
+      els.personality.value = shouldMigrateDefault ? "" : data.personality || "";
       els.emotionLevel.value = DEFAULT_EMOTION_LEVEL;
       els.replyLength.value = DEFAULT_REPLY_LENGTH;
       els.apiKey.value = data.apiKey || "";
@@ -1017,7 +1021,6 @@
       enhanceSelectControls();
       syncCustomSelects();
       bindEvents();
-      setNotificationMenu(true);
     } catch (error) {
       setError(`${error.message} 请通过服务器访问页面，并确认清单文件存在。`);
     }

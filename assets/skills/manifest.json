@@ -19,6 +19,8 @@
     { "id": "idol_yang_hanbo", "file": "idol-yang-hanbo.js" },
     { "id": "idol_korean_boyfriend", "file": "idol-korean-boyfriend.js" },
     { "id": "celeb_song_weilong", "file": "celeb-song-weilong.js" },
+    { "id": "celeb_zhang_linghe", "file": "celeb-zhang-linghe.js" },
+    { "id": "celeb_huang_jingyu", "file": "celeb-huang-jingyu.js" },
     { "id": "celeb_xiao_zhan", "file": "celeb-xiao-zhan.js" },
     { "id": "celeb_wang_yibo", "file": "celeb-wang-yibo.js" },
     { "id": "celeb_tan_jianci", "file": "celeb-tan-jianci.js" },

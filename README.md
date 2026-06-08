@@ -1,124 +1,146 @@
-# Soul Echo AI Companion
+# AI 陪伴助手 HTML 版
 
-一个适合手机端访问的恋爱陪伴 AI 聊天页。前端使用原生 HTML / CSS / JavaScript，后端只用一个 PHP 代理接口提供默认体验额度。
+这是小红书首发用的第一版源码：一个移动端恋爱陪伴聊天页。前端零依赖，支持通过 PHP 代理提供 10 次赠送聊天额度。
 
-这个项目适合用来学习：
-
-- AI 陪伴类产品的第一版落地形态
-- 移动端玻璃质感聊天 UI
-- DeepSeek Chat Completions 流式输出
-- 浏览器本地保存 API Key 和历史会话
-- 角色 Skill 文件拆分和动态加载
-- 服务器代理赠送体验次数
-
-## 在线能力
+## 已实现
 
 - 手机聊天主界面
 - 可收缩配置侧栏
-- 女生 / 男生角色切换
-- 多角色恋爱陪伴设定
-- Skill 清单自动加载，后续新增角色不用重写主逻辑
-- DeepSeek `deepseek-v4-flash` / `deepseek-v4-pro` 二选一
+- 多角色恋爱陪伴，支持女生 / 男生按钮切换
+- Skill 清单自动加载，方便服务器长期新增角色
+- 可选择关系设定
+- DeepSeek Chat Completions API 接入
 - 流式输出
-- 未填写 API Key 时，走服务器代理体验 10 次
-- 用户自己的 API Key 只保存到当前浏览器 `localStorage`
-- 历史会话只保存在当前浏览器本地
+- 未填写 API Key 时，可走服务器代理体验 10 次
+- API Key 保存到当前浏览器 `localStorage`
+- 男生浅蓝主题、女生浅粉主题
 
 ## 目录结构
 
 ```text
-.
+ai-companion-html-v1/
 ├─ index.html
 ├─ api/
 │  ├─ chat.php
 │  ├─ config.example.php
-│  └─ wechat_article.php
-└─ assets/
-   ├─ css/
-   │  └─ styles.css
-   ├─ img/
-   │  ├─ deepseek-color.svg
-   │  └─ dx-logo.svg
-   ├─ js/
-   │  └─ app.js
-   └─ skills/
-      ├─ manifest.json
-      └─ *.js
+│  └─ storage/
+├─ assets/
+│  ├─ css/
+│  │  └─ styles.css
+│  ├─ js/
+│  │  └─ app.js
+│  └─ skills/
+│     ├─ manifest.json
+│     ├─ sweet-girl.js
+│     ├─ gentle-girl.js
+│     ├─ dongbei-yujie.js
+│     ├─ celeb-yu-shuxin.js
+│     ├─ celeb-zhao-lusi.js
+│     ├─ celeb-dilireba.js
+│     ├─ celeb-yang-mi.js
+│     ├─ celeb-tian-xiwei.js
+│     ├─ celeb-li-xueqin.js
+│     ├─ sunny-boy.js
+│     ├─ tong-jincheng.js
+│     ├─ idol-ma-jiaqi.js
+│     ├─ idol-ding-chengxin.js
+│     ├─ idol-song-yaxuan.js
+│     ├─ idol-zhang-zhenyuan.js
+│     ├─ idol-yan-haoxiang.js
+│     ├─ idol-he-junlin.js
+│     ├─ idol-liu-yaowen.js
+│     ├─ idol-korean-boyfriend.js
+│     ├─ celeb-xiao-zhan.js
+│     ├─ celeb-wang-yibo.js
+│     ├─ celeb-tan-jianci.js
+│     └─ celeb-liu-yuning.js
 ```
 
-## 部署方式
+## 内置角色
 
-把整个项目上传到支持 PHP 的站点目录，例如：
+女生：
 
-- Nginx + PHP-FPM
-- Apache + PHP
-- 宝塔 PHP 站点
+- 甜妹小鹿
+- 温柔姐姐
+- 东北雨姐型·豪爽大姐
+- 虞书欣型·夹子甜妹
+- 赵露思型·元气甜心
+- 迪丽热巴型·浓颜御姐
+- 杨幂型·清醒姐姐
+- 田曦薇型·甜酷小太阳
+- 李雪琴型·东北嘴替
 
-浏览器访问站点根目录即可。
+男生：
 
-不要直接双击 `index.html` 运行。角色清单通过 `fetch()` 加载，部分浏览器会限制 `file://` 读取本地 JSON。
+- 年下小狗
+- 童锦程
+- 马嘉祺型·清冷队长
+- 丁程鑫型·舞台热恋感
+- 宋亚轩型·阳光治愈系
+- 张真源型·温厚安全感
+- 严浩翔型·猫系拽哥
+- 贺峻霖型·会聊天的梗王
+- 刘耀文型·年下直球
+- 韩系爱豆男友
+- 肖战型·温柔男友感
+- 王一博型·冷感酷哥
+- 檀健次型·会撩会哄
+- 刘宇宁型·低音陪伴感
 
-## 配置 DeepSeek Key
+## 使用方式
 
-如果只允许用户填写自己的 Key，可以不配置服务器 Key。
+部署到服务器时，把整个 `ai-companion-html-v1` 目录上传到支持 PHP 的站点，例如 Nginx + PHP-FPM、Apache、宝塔 PHP 站点。
 
-如果要启用“默认赠送 10 次聊天机会”，推荐在服务器上配置环境变量：
+如果要启用“默认赠送 10 次聊天机会”，不要把你的 DeepSeek API Key 写进前端文件。推荐二选一：
+
+1. 在服务器环境变量里设置：
 
 ```text
-DEEPSEEK_API_KEY=sk-your-key
-FREE_QUOTA_LIMIT=10
+DEEPSEEK_API_KEY=sk-你的Key
 ```
 
-也可以复制示例配置：
-
-```bash
-cp api/config.example.php api/config.php
-```
-
-然后填写：
+2. 或复制 `api/config.example.php` 为 `api/config.php`，然后填写：
 
 ```php
 <?php
 return [
-    'deepseek_api_key' => 'sk-your-key',
+    'deepseek_api_key' => 'sk-你的Key',
     'free_quota_limit' => 10,
 ];
 ```
 
-`api/config.php` 不要提交到 GitHub。
-
-## 接口说明
-
-用户填写自己的 API Key 时，前端直接请求：
-
-```text
-POST https://api.deepseek.com/chat/completions
-```
-
-用户未填写 API Key 时，前端请求：
+用户未填写 Key 时，请求会走：
 
 ```text
 POST ./api/chat.php
 ```
 
-`chat.php` 会：
+超过 10 次后，页面会提示用户填写自己的 DeepSeek API Key。
 
-- 校验请求体
-- 读取服务器 DeepSeek Key
-- 按浏览器 Cookie 记录赠送次数
-- 转发 DeepSeek 流式响应
-- 不保存聊天记录
+用户也可以在侧栏填写自己的：
 
-## 新增角色
+- `API Key`：你的 DeepSeek API Key
+- `Model`：在 `deepseek-v4-flash` 和 `deepseek-v4-pro` 之间选择
 
-1. 在 `assets/skills/` 新建角色文件，例如 `new-role.js`。
-2. 在 `assets/skills/manifest.json` 加入：
+填写自己的 API Key 后，页面会直接请求：
+
+```text
+POST https://api.deepseek.com/chat/completions
+```
+
+服务器代理只保存赠送次数计数，不保存聊天记录。聊天记录仍然只保存在当前浏览器本地。
+
+## 新增角色 Skill
+
+
+1. 在 `assets/skills/` 下新建一个角色文件，例如 `new-role.js`。
+2. 在 `assets/skills/manifest.json` 里加入：
 
 ```json
 { "id": "new_role", "file": "new-role.js" }
 ```
 
-角色文件格式：
+角色文件格式参考现有 skill：
 
 ```js
 (function () {
@@ -126,7 +148,7 @@ POST ./api/chat.php
 
   window.AI_COMPANION_SKILLS.new_role = {
     id: "new_role",
-    gender: "女",
+    gender: "男",
     name: "新角色",
     avatar: "✨",
     relationship: "像恋人一样陪我聊天，但保持健康边界",
@@ -136,17 +158,8 @@ POST ./api/chat.php
 }());
 ```
 
-## 隐私说明
+角色名字、性格关键词、表情强度和回复长度在第一版界面中默认隐藏，由角色 Skill 自动提供。
 
-- 用户填写的 API Key 只保存在当前浏览器本地。
-- 历史会话只保存在当前浏览器本地。
-- 服务器代理只记录赠送次数，不保存聊天正文。
-- 清空历史后，当前浏览器里的会话记录会被移除。
+## 注意
 
-## 版权与角色说明
-
-本项目由 Poppis 个人设计、开发与整理，仅供学习和个人体验使用。
-
-所有角色均为虚构 AI 设定，不代表真人本人、经纪公司或官方授权。涉及的名称、图标和公开风格参考归原权利方所有，仅用于演示 AI 角色设定效果。
-
-未经允许，请勿搬运、售卖或用于商业用途。
+这一版改成 `manifest.json` 动态加载角色，适合部署在服务器上访问。直接双击 `index.html` 时，部分浏览器会限制 `file://` 下读取 JSON 清单。
